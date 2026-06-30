@@ -10,9 +10,9 @@
                 <label class="col-sm-3 col-form-label">Product</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" placeholder="Name" formControlName="name">
-                    @if (isValidField('name')) {
+                    @if (formUtils.isValidField(myForm,'name')) {
                         <span class="form-text text-danger">
-                            {{getFieldError('name')}}
+                            {{formUtils.getFieldError(myForm,'name')}}
                         </span>
                     }
                 </div>
@@ -22,9 +22,9 @@
                 <label class="col-sm-3 col-form-label">Price</label>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" placeholder="Price" formControlName="price">
-                    @if (isValidField('price')) {
+                    @if (formUtils.isValidField(myForm, 'price')) {
                         <span class="form-text text-danger">
-                            {{getFieldError('price')}}
+                            {{formUtils.getFieldError(myForm, 'price')}}
                         </span>
                     }
                 </div>
@@ -34,9 +34,9 @@
                 <label class="col-sm-3 col-form-label">Stock</label>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
-                    @if (isValidField('stock')) {
+                    @if (formUtils.isValidField(myForm, 'stock')) {
                         <span class="form-text text-danger">
-                            {{getFieldError('stock')}}
+                            {{formUtils.getFieldError(myForm, 'stock')}}
                         </span>
                     }
                 </div>
