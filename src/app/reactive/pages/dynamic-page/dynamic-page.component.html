@@ -3,7 +3,7 @@
     <hr />
 </section>
 
-<form autocomplete="off" [formGroup]="myForm">
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-9">
@@ -20,8 +20,13 @@
         <label class="col-sm-3 col-form-label">Add</label>
         <div class="col-sm-9">
             <div class="input-group">
-                <input class="form-control" placeholder="Add favorite">
-                <button class="btn btn-outline-primary" type="button">
+                <input 
+                    class="form-control" 
+                    placeholder="Add favorite" 
+                    [formControl]="newFavoriteGame"
+                    (keydown.enter)="onAddToFavorites()"
+                >
+                <button class="btn btn-outline-primary" type="button" (click)="onAddToFavorites()">
                     Add favorite
                 </button>
             </div>
@@ -35,7 +40,7 @@
                 <div class="mb-1">
                     <div class="input-group">
                         <input class="form-control" [formControlName]="i">
-                        <button class="btn btn-outline-danger" type="button">
+                        <button class="btn btn-outline-danger" type="button" (click)="onDeleteFavorite(i)">
                             Delete
                         </button>
                     </div>
@@ -47,13 +52,18 @@
                 </div>
             }
 
+            @if(formUtil.isValidField(myForm, 'favoriteGames')){
+                <span class="form-text text-danger">
+                    Must exist at least 2 games 
+                </span>
+            }
+
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-12">
             <button type="submit" class="btn btn-primary float-end">
-                <!-- [disabled]="myForm.invalid" -->
                 Save
             </button>
         </div>
@@ -70,6 +80,6 @@
     <br>
 
     <span>Add game</span>
-    <!-- <pre>{{ 'object' | json }}</pre>
-    <pre>{{ 'object' | json }}</pre> -->
+    <pre>{{ myForm.controls['favoriteGames'].errors | json }}</pre>
+    <pre>{{ myForm.controls['favoriteGames'].value | json }}</pre>
 </section>
