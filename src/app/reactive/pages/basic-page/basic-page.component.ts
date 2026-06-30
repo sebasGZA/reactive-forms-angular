@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms'
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms'
 @Component({
   selector: 'app-basic-page',
   imports: [JsonPipe, ReactiveFormsModule],
@@ -13,7 +13,7 @@ export class BasicPageComponent {
   //   stock: new FormControl(0),
   // })
   fb = inject(FormBuilder)
-  myForm = this.fb.group({
+  myForm: FormGroup = this.fb.group({
     name: [
       '',
       [
@@ -37,4 +37,24 @@ export class BasicPageComponent {
       ]
     ],
   })
+
+  isValidField(fieldName: string): boolean | null {
+    return !!this.myForm.controls[fieldName].errors
+  }
+
+  getFieldError(fieldName: string): string | null {
+    if (!this.myForm.controls[fieldName]) return null;
+    const errors = this.myForm.controls[fieldName].errors ?? {}
+    for (const key of Object.keys(errors)) {
+      switch (key) {
+        case 'required':
+          return 'This field is required'
+        case 'minlength':
+          return `The name must contain ${errors['minlength'].requiredLength} or more characters`
+        case 'min':
+          return `The min value is ${errors['min'].min}`
+      }
+    }
+    return null;
+  }
 }

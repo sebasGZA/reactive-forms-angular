@@ -10,9 +10,11 @@
                 <label class="col-sm-3 col-form-label">Product</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" placeholder="Name" formControlName="name">
-                    <span class="form-text text-danger">
-                        error message
-                    </span>
+                    @if (isValidField('name')) {
+                        <span class="form-text text-danger">
+                            {{getFieldError('name')}}
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -20,9 +22,11 @@
                 <label class="col-sm-3 col-form-label">Price</label>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" placeholder="Price" formControlName="price">
-                    <span class="form-text text-danger">
-                        The price must be greater than or equal to 0
-                    </span>
+                    @if (isValidField('price')) {
+                        <span class="form-text text-danger">
+                            {{getFieldError('price')}}
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -30,10 +34,11 @@
                 <label class="col-sm-3 col-form-label">Stock</label>
                 <div class="col-sm-9">
                     <input type="number" class="form-control" placeholder="Stock" formControlName="stock">
-
-                    <span class="form-text text-danger">
-                        The stock must be greater than or equal to 0
-                    </span>
+                    @if (isValidField('stock')) {
+                        <span class="form-text text-danger">
+                            {{getFieldError('stock')}}
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -64,12 +69,12 @@
         <pre>{{ myForm.value| json }}</pre>
 
         <span>Errors</span>
-        <pre>{{ myForm.controls.name.errors| json }}</pre>
+        <pre>{{ myForm.controls['name'].errors| json }}</pre>
 
         <span>Price</span>
-        <pre>{{ myForm.controls.price.value | json }}</pre>
+        <pre>{{ myForm.controls['price'].value | json }}</pre>
 
         <span>Product</span>
-        <pre>{{ myForm.controls.name.value | json }}</pre>
+        <pre>{{ myForm.controls['name'].value | json }}</pre>
     </div>
 </div>
