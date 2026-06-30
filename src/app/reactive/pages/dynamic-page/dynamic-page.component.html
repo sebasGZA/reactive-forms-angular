@@ -25,6 +25,7 @@
                     placeholder="Add favorite" 
                     [formControl]="newFavoriteGame"
                     (keydown.enter)="onAddToFavorites()"
+                    (keydown.enter)="$event.preventDefault()"
                 >
                 <button class="btn btn-outline-primary" type="button" (click)="onAddToFavorites()">
                     Add favorite
