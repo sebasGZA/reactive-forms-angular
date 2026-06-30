@@ -1,1 +1,57 @@
-<p>country-page.component works!</p>,
+<section>
+    <h1>Selectors</h1>
+    <hr />
+</section>
+
+<form>
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Region:</label>
+            <select formControlName="region" class="form-control">
+                <option value="">-- Select a Region --</option>
+
+                <!-- <option [value]="region">
+          {{ region }}
+        </option> -->
+
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Country:</label>
+            <select formControlName="country" class="form-control">
+                <option value="">-- Select a Country --</option>
+
+                <!-- <option [value]="country.cca3">
+          {{ country.name }}
+        </option> -->
+
+            </select>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Borders:</label>
+            <select formControlName="border" class="form-control">
+                <option value="">-- Select a Border --</option>
+
+
+                <!-- <option [value]="country.cca3">
+          {{ country.name }}
+        </option> -->
+            </select>
+        </div>
+    </div>
+
+</form>
+
+<section>
+    <h3>Form</h3>
+    <code>
+  <!-- {{ 'myForm.value' | json }} -->
+    </code>
+    <p>is form valid: {{ 'myForm.valid' }}</p>
+</section>
