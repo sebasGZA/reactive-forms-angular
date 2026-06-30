@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms'
 @Component({
   selector: 'app-basic-page',
   imports: [JsonPipe, ReactiveFormsModule],
@@ -14,8 +14,27 @@ export class BasicPageComponent {
   // })
   fb = inject(FormBuilder)
   myForm = this.fb.group({
-    name: ['', [], []],
-    price: [0],
-    stock: [0],
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3)
+      ],
+      []
+    ],
+    price: [
+      0,
+      [
+        Validators.required,
+        Validators.min(10)
+      ]
+    ],
+    stock: [
+      0,
+      [
+        Validators.required,
+        Validators.min(1)
+      ]
+    ],
   })
 }
