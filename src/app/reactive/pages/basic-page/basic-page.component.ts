@@ -39,7 +39,8 @@ export class BasicPageComponent {
   })
 
   isValidField(fieldName: string): boolean | null {
-    return !!this.myForm.controls[fieldName].errors
+    const field = this.myForm.controls[fieldName];
+    return (!!field.errors) && field.touched
   }
 
   getFieldError(fieldName: string): string | null {
@@ -56,5 +57,13 @@ export class BasicPageComponent {
       }
     }
     return null;
+  }
+
+  onSave() {
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched()
+    }
+    console.log(this.myForm.value)
+    this.myForm.reset()
   }
 }
