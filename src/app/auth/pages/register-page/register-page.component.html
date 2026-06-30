@@ -1,1 +1,94 @@
-<p>register-page.component works!</p>,
+<section>
+    <h2>Reactive validations</h2>
+    <hr>
+</section>
+
+<div class="row">
+    <div class="col">
+        <form autocomplete="off">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Full name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="User name">
+                    <span class="form-text text-danger">
+                        The format must be name and last name
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email" class="form-control" placeholder="Email">
+                    <span class="form-text text-danger">
+                        Error message for email
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Nickname</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="Nickname">
+                    <span class="form-text text-danger">
+                        The nickname is required
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Password">
+                    <span class="form-text text-danger">
+                        The password must be greater than 6 characters.
+                    </span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Confirm password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" placeholder="Confirm password">
+
+                    <span class="form-text text-danger">
+                        Passwords must be equals
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary float-end" type="submit">
+                        Create
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<section>
+    <h2>Form Valid: </h2>
+    <h2>Form Status: </h2>
+    <h2>Form Pending: </h2>
+    <h2>Form errors</h2>
+    <pre>{{ 'form' | json }}</pre>
+
+    <h5>Nombre</h5>
+    <pre>{{ 'form' | json }}</pre>
+
+    <h5>Email</h5>
+    <pre>{{ 'form' | json }}</pre>
+
+    <h5>Username</h5>
+    <pre>{{ 'form' | json }}</pre>
+
+
+    <h5>Password</h5>
+    <pre>{{ 'form' | json }}</pre>
+
+    <h5>Confirmar</h5>
+    <pre>{{ 'form' | json }}</pre>
+</section>
