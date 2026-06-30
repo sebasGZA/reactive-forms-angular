@@ -8,9 +8,11 @@
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-9">
             <input class="form-control" placeholder="Name" formControlName="name">
-            <span class="form-text text-danger">
-                error message
-            </span>
+            @if(formUtil.isValidField(myForm, 'name')){
+                <span class="form-text text-danger">
+                    {{formUtil.getFieldError(myForm, 'name')}}
+                </span>
+            }
         </div>
     </div>
 
@@ -37,9 +39,11 @@
                             Delete
                         </button>
                     </div>
-                    <span class="form-text text-danger">
-                        This field is required
-                    </span>
+                    @if(formUtil.isValidFieldInArray(favoriteGames, i)){
+                        <span class="form-text text-danger">
+                            {{formUtil.getInArrayError(favoriteGames, i)}}
+                        </span>
+                    }
                 </div>
             }
 

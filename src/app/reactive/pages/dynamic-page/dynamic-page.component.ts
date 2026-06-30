@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FormUtils } from '../../../utils/form.util';
 
 @Component({
   selector: 'app-dynamic-page',
@@ -15,6 +16,7 @@ import {
 })
 export class DynamicPageComponent {
   private fb = inject(FormBuilder)
+  formUtil = FormUtils;
 
   myForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
