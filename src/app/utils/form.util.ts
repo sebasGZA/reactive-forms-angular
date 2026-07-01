@@ -17,7 +17,11 @@ export class FormUtils {
                 case 'required':
                     return 'This field is required'
                 case 'minlength':
-                    return `The name must contain ${errors['minlength'].requiredLength} or more characters`
+                    return `The field must contain ${errors['minlength'].requiredLength} or more characters`
+                case 'min':
+                    return `The value must be greater than ${errors['min'].min}`
+                case 'email':
+                    return 'Please enter a valid email address';
             }
         }
         return null;

@@ -23,7 +23,8 @@ export class SwitchesPageComponent {
     termsAndConditions: [false, Validators.requiredTrue],
   })
 
-  onSubmit(){
+  onSubmit() {
     this.myForm.markAllAsTouched();
+    console.log(this.myForm.value)
   }
 }
