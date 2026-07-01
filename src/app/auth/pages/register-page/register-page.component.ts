@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form.util';
 
 @Component({
@@ -14,44 +14,50 @@ export class RegisterPageComponent {
 
   myForm = this.fb.group({
     name: [
-      '', 
+      '',
       [
-        Validators.required, 
-        Validators.minLength(2), 
+        Validators.required,
+        Validators.minLength(2),
         Validators.pattern(this.formUtils.namePattern),
       ]
     ],
     username: [
-      '', 
+      '',
       [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(3),
         Validators.pattern(this.formUtils.notOnlySpacesPattern)
       ]
     ],
     email: [
-      '', 
+      '',
       [
-        Validators.required, 
+        Validators.required,
         Validators.email,
         Validators.pattern(this.formUtils.emailPattern),
       ]
     ],
     password: [
-      '', 
+      '',
       [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(6),
       ]
     ],
     confirmPassword: [
-      '', 
+      '',
       [
-        Validators.required, 
+        Validators.required,
         Validators.minLength(6)
       ]
     ],
+  }, {
+    validators: [
+      this.formUtils.areFieldsEquals('password', 'confirmPassword')
+    ]
   })
+
+
 
   onSubmit() {
     this.myForm.markAllAsTouched();
