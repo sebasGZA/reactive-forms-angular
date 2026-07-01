@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { combineLatest, map, Observable, of } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Country, RESCountryResponse } from '../interfaces/REScountry.interface';
@@ -37,9 +37,9 @@ export class CountryService {
         )
     }
 
-    getCountryByAlphaCode(code: string): Observable<Country | null> {
+    getCountryByAlphaCode(code: string): Observable<Country> {
         return this.http.get<RESCountryResponse>(
-            `${this.apiKey}/codes.alpha_2/${code}`, {
+            `${this.baseUrl}/codes.alpha_2/${code}`, {
             headers: {
                 Authorization: `Bearer ${this.apiKey}`
             },
@@ -47,11 +47,31 @@ export class CountryService {
                 response_fields: 'names.common,flag.emoji,borders,codes.alpha_2'
             }
         }).pipe(
-            map(({ data }: RESCountryResponse) => data.objects[0] ?? null)
+            map(({ data }: RESCountryResponse) => data.objects[0])
         )
     }
 
-    getCountryBordersByCode(borders: string) {
+    getCountryByBorder(border: string) {
+        return this.http.get<RESCountryResponse>(
+            `${this.baseUrl}/codes.alpha_3/${border}`, {
+            headers: {
+                Authorization: `Bearer ${this.apiKey}`
+            },
+            params: {
+                response_fields: 'names.common,flag.emoji,borders,codes.alpha_2'
+            }
+        }).pipe(
+            map(({ data }: RESCountryResponse) => data.objects[0])
+        )
+    }
 
+    getCountryNamesByBorders(countryCodes: string[]): Observable<Country[]> {
+        if (!countryCodes || countryCodes.length === 0) return of([])
+        const countryRequests: Observable<Country>[] = [];
+        countryCodes.forEach((border) => {
+            const request = this.getCountryByBorder(border);
+            countryRequests.push(request)
+        })
+        return combineLatest(countryRequests)
     }
 }
