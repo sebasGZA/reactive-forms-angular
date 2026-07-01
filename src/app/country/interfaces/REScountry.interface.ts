@@ -19,6 +19,7 @@ export interface Meta {
 
 export interface Country {
     names:   Names;
+    codes:   Codes;
     flag:    Flag;
     borders: string[];
     _match:  Match[];
@@ -26,15 +27,28 @@ export interface Country {
 }
 
 export interface Match {
-    path:  string;
-    value: string;
+    path:  Path;
+    value: Value;
+}
+
+export enum Path {
+    Region = "region",
+}
+
+export enum Value {
+    Americas = "Americas",
 }
 
 export interface MetaClass {
     lastUpdatedTimestamp: number;
 }
 
+export interface Codes {
+    alpha_2: string;
+}
+
 export interface Flag {
+    emoji: string;
 }
 
 export interface Names {

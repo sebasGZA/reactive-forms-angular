@@ -30,7 +30,7 @@ export class CountryService {
                 Authorization: `Bearer ${this.apiKey}`
             },
             params: {
-                response_fields: 'names.common,flag.emoji,borders'
+                response_fields: 'names.common,flag.emoji,borders,codes.alpha_2'
             }
         }).pipe(
             map(({ data }: RESCountryResponse) => data.objects)
@@ -44,7 +44,7 @@ export class CountryService {
                 Authorization: `Bearer ${this.apiKey}`
             },
             params: {
-                response_fields: 'names.common,flag.emoji,borders'
+                response_fields: 'names.common,flag.emoji,borders,codes.alpha_2'
             }
         }).pipe(
             map(({ data }: RESCountryResponse) => data.objects[0] ?? null)

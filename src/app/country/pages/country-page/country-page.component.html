@@ -23,11 +23,11 @@
             <label class="form-label">Country:</label>
             <select formControlName="country" class="form-control">
                 <option value="">-- Select a Country --</option>
-
-                <!-- <option [value]="country.cca3">
-          {{ country.name }}
-        </option> -->
-
+                @for (country of countriesByRegion(); track country.codes.alpha_2) {
+                    <option [value]="country.codes.alpha_2">
+                        {{ country.names.common }}
+                    </option>
+                }
             </select>
         </div>
     </div>
