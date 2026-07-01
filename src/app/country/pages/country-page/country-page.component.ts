@@ -18,12 +18,12 @@ export class CountryPageComponent {
 
   regions = signal<string[]>(this.countryService.regions);
   countriesByRegion = signal<Country[]>([])
-  borders = signal<string[]>([])
+  borders = signal<Country[]>([])
 
   myForm = this.fb.group({
     region: ['', Validators.required],
     country: ['', Validators.required],
-    borders: ['', Validators.required],
+    border: ['', Validators.required],
   })
 
   onFormChange = effect((onCleanUp) => {
@@ -40,7 +40,7 @@ export class CountryPageComponent {
     return this.myForm.get('region')!
       .valueChanges.pipe(
         tap(() => this.myForm.get('country')!.setValue('')),
-        tap(() => this.myForm.get('borders')!.setValue('')),
+        tap(() => this.myForm.get('border')!.setValue('')),
         tap(() => {
           this.borders.set([]);
           this.countriesByRegion.set([])
@@ -53,7 +53,7 @@ export class CountryPageComponent {
   onCountryChange() {
     return this.myForm.get('country')!.valueChanges
       .pipe(
-        tap(() => this.myForm.get('borders')!.setValue('')),
+        tap(() => this.myForm.get('border')!.setValue('')),
         filter(value => value!.length > 0),
         switchMap((alphaCode) =>
           this.countryService.getCountryByAlphaCode(alphaCode!)
@@ -62,6 +62,6 @@ export class CountryPageComponent {
           this.countryService.getCountryNamesByBorders(country.borders)
         )
       )
-      .subscribe((countries) => console.log(countries))
+      .subscribe((countries) => this.borders.set(countries))
   }
 }
