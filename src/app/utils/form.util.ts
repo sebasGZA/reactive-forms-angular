@@ -1,6 +1,11 @@
 import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormUtils {
+
+    static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+    static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+    static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+
     static isValidField(form: FormGroup, fieldName: string): boolean | null {
         const field = form.controls[fieldName];
         return (!!field.errors) && field.touched
@@ -22,6 +27,13 @@ export class FormUtils {
                     return `The value must be greater than ${errors['min'].min}`
                 case 'email':
                     return 'Please enter a valid email address';
+                case 'pattern':
+                    if (errors['pattern'].requiredPattern === this.emailPattern) {
+                        return 'The email is not valid email'
+                    }
+                    return 'Pattern error not handled'
+                default:
+                    return `Error is not handled for ${key}`
             }
         }
         return null;
