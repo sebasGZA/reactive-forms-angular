@@ -3,17 +3,17 @@
     <hr />
 </section>
 
-<form>
+<form [formGroup]="myForm">
     <div class="row mb-3">
         <div class="col">
             <label class="form-label">Region:</label>
             <select formControlName="region" class="form-control">
                 <option value="">-- Select a Region --</option>
-
-                <!-- <option [value]="region">
-          {{ region }}
-        </option> -->
-
+                @for (region of regions(); track region) {
+                <option [value]="region">
+                    {{ region }}
+                </option>
+                }
             </select>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="row mb-3">
         <div class="col">
             <label class="form-label">Borders:</label>
-            <select formControlName="border" class="form-control">
+            <select formControlName="borders" class="form-control">
                 <option value="">-- Select a Border --</option>
 
 
@@ -51,7 +51,7 @@
 <section>
     <h3>Form</h3>
     <code>
-  <!-- {{ 'myForm.value' | json }} -->
+        {{ 'myForm.value' | json }}
     </code>
-    <p>is form valid: {{ 'myForm.valid' }}</p>
+    <p>is form valid: {{ myForm.valid }}</p>
 </section>
