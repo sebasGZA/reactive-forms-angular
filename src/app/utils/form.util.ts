@@ -42,6 +42,8 @@ export class FormUtils {
                     return 'Please enter a valid email address';
                 case 'emailTaken':
                     return 'The email is already used';
+                case 'usernameTaken':
+                    return 'The username is already taken';
                 case 'pattern':
                     if (errors['pattern'].requiredPattern === this.emailPattern) {
                         return 'The email is not valid email'
@@ -80,13 +82,24 @@ export class FormUtils {
 
     static async checkingServerResponse(control: AbstractControl)
         : Promise<ValidationErrors | null> {
-            await sleep()
-            const formValue = control.value
-            if(formValue === 'hello@world.com'){
-                return {
-                    emailTaken: true,
-                }
+        await sleep()
+        const formValue = control.value
+        if (formValue === 'hello@world.com') {
+            return {
+                emailTaken: true,
             }
+        }
+        return null
+    }
+
+    static notStriderUsername(control: AbstractControl)
+        : ValidationErrors | null {
+        const formValue = control.value
+        if (formValue === 'strider') {
+            return {
+                usernameTaken: true,
+            }
+        }
         return null
     }
 }

@@ -26,7 +26,8 @@ export class RegisterPageComponent {
       [
         Validators.required,
         Validators.minLength(3),
-        Validators.pattern(this.formUtils.notOnlySpacesPattern)
+        Validators.pattern(this.formUtils.notOnlySpacesPattern),
+        this.formUtils.notStriderUsername
       ]
     ],
     email: [
