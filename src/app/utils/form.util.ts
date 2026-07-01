@@ -1,4 +1,17 @@
-import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
+import {
+    AbstractControl,
+    FormArray,
+    FormGroup,
+    ValidationErrors,
+} from "@angular/forms";
+
+async function sleep() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(true)
+        }, 2500);
+    })
+}
 
 export class FormUtils {
 
@@ -27,11 +40,13 @@ export class FormUtils {
                     return `The value must be greater than ${errors['min'].min}`
                 case 'email':
                     return 'Please enter a valid email address';
+                case 'emailTaken':
+                    return 'The email is already used';
                 case 'pattern':
                     if (errors['pattern'].requiredPattern === this.emailPattern) {
                         return 'The email is not valid email'
                     }
-                    return 'Pattern error not handled'
+                    return 'Pattern error is not handled'
                 default:
                     return `Error is not handled for ${key}`
             }
@@ -61,5 +76,17 @@ export class FormUtils {
                 fieldsAreNotEqual: true
             }
         }
+    }
+
+    static async checkingServerResponse(control: AbstractControl)
+        : Promise<ValidationErrors | null> {
+            await sleep()
+            const formValue = control.value
+            if(formValue === 'hello@world.com'){
+                return {
+                    emailTaken: true,
+                }
+            }
+        return null
     }
 }

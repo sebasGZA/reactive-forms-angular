@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form.util';
 
 @Component({
@@ -35,6 +35,9 @@ export class RegisterPageComponent {
         Validators.required,
         Validators.email,
         Validators.pattern(this.formUtils.emailPattern),
+      ],
+      [
+        this.formUtils.checkingServerResponse
       ]
     ],
     password: [
@@ -56,8 +59,6 @@ export class RegisterPageComponent {
       this.formUtils.areFieldsEquals('password', 'confirmPassword')
     ]
   })
-
-
 
   onSubmit() {
     this.myForm.markAllAsTouched();
