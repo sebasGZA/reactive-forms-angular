@@ -5,61 +5,79 @@
 
 <div class="row">
     <div class="col">
-        <form autocomplete="off">
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Full name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="User name">
-                    <span class="form-text text-danger">
-                        The format must be name and last name
-                    </span>
+                    <input type="text" class="form-control" placeholder="User name" formControlName="name">
+
+                    @if (formUtils.isValidField(myForm, 'name')) {
+                        <span class="form-text text-danger">
+                            The Field must have name and last name
+                            <!-- {{formUtils.getFieldError(myForm, 'name')}} -->
+                        </span>
+                    }
+
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" placeholder="Email">
-                    <span class="form-text text-danger">
-                        Error message for email
-                    </span>
+                    <input type="email" class="form-control" placeholder="Email" formControlName="email">
+                    @if (formUtils.isValidField(myForm, 'email')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'email')}}
+                        </span>
+                    }
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Nickname</label>
+                <label class="col-sm-3 col-form-label">User name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" placeholder="Nickname">
-                    <span class="form-text text-danger">
-                        The nickname is required
-                    </span>
+                    <input type="text" class="form-control" placeholder="Username" formControlName="username">
+                    @if (formUtils.isValidField(myForm, 'username')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'username')}}
+                        </span>
+                    }
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Password</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Password">
-                    <span class="form-text text-danger">
-                        The password must be greater than 6 characters.
-                    </span>
+                    <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                    @if (formUtils.isValidField(myForm, 'password')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'password')}}
+                        </span>
+                    }
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Confirm password</label>
                 <div class="col-sm-9">
-                    <input type="password" class="form-control" placeholder="Confirm password">
-
-                    <span class="form-text text-danger">
-                        Passwords must be equals
-                    </span>
+                    <input type="password" class="form-control" placeholder="Confirm password"
+                        formControlName="confirmPassword">
+                    @if (formUtils.isValidField(myForm, 'confirmPassword')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'confirmPassword')}}
+                        </span>
+                    }
                 </div>
             </div>
 
-
             <div class="row">
                 <div class="col">
+                    @if (myForm.errors && myForm.touched) {
+                        <span class="text-danger">
+                            Passwords are not equal
+                        </span>
+                    }
+
                     <button class="btn btn-primary float-end" type="submit">
                         Create
                     </button>
@@ -70,25 +88,27 @@
 </div>
 
 <section>
-    <h2>Form Valid: </h2>
-    <h2>Form Status: </h2>
-    <h2>Form Pending: </h2>
+    <h2>Form Valid: {{myForm.valid}} </h2>
+    <h2>Form Status: {{myForm.status}}</h2>
+    <h2>Form Pending: {{myForm.pending}}</h2>
+    <h5>Form Value</h5>
+    <pre>{{myForm.value | json}}</pre>
     <h2>Form errors</h2>
-    <pre>{{ 'form' | json }}</pre>
+    <pre>{{ myForm.errors | json }}</pre>
 
-    <h5>Nombre</h5>
-    <pre>{{ 'form' | json }}</pre>
+    <h5>Name</h5>
+    <pre>{{ myForm.controls.name.errors | json }}</pre>
 
     <h5>Email</h5>
-    <pre>{{ 'form' | json }}</pre>
+    <pre>{{ myForm.controls.email.errors | json }}</pre>
 
     <h5>Username</h5>
-    <pre>{{ 'form' | json }}</pre>
+    <pre>{{ myForm.controls.username.errors | json }}</pre>
 
 
     <h5>Password</h5>
-    <pre>{{ 'form' | json }}</pre>
+    <pre>{{ myForm.controls.password.errors | json }}</pre>
 
-    <h5>Confirmar</h5>
-    <pre>{{ 'form' | json }}</pre>
+    <h5>Confirm Password</h5>
+    <pre>{{ myForm.controls.confirmPassword.errors | json }}</pre>
 </section>
